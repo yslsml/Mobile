@@ -36,6 +36,12 @@ public class Mobile {
         this.brand = brand;
     }
 
+    public void setBrand(String brand) {
+        if(ValidMobileProperties.isValidMobileBrand(brand)) {
+            this.brand = Brand.valueOf(brand);
+        }
+    }
+
     public void setModel(String model) {
         this.model = model;
     }
@@ -88,7 +94,7 @@ public class Mobile {
                 "\nbrand = " + brand +
                 "\nmodel = " + model +
                 "\nproperties = " + properties +
-                "\nprice = " + price + "$" +
+                "\nprice = " + String.format("%.2f", price) + "$" +
                 "\n}";
     }
 
@@ -96,10 +102,10 @@ public class Mobile {
     public class Properties {
         private double diagonalScreenSize;
         private double ppi;
-        private double ram;
+        private int ram;
         private boolean hasExternalMemoryCard;
 
-        public Properties(double diagonalScreenSize, double ppi, double ram, boolean hasExternalMemoryCard) throws BadMobileException {
+        public Properties(double diagonalScreenSize, double ppi, int ram, boolean hasExternalMemoryCard) throws BadMobileException {
             setDiagonalScreenSize(diagonalScreenSize);
             setPpi(ppi);
             setRam(ram);
@@ -120,7 +126,7 @@ public class Mobile {
             else throw new BadMobileException("The ppi is invalid!");
         }
 
-        public void setRam(double ram) throws BadMobileException {
+        public void setRam(int ram) throws BadMobileException {
             if (ValidMobileProperties.isValidRam(ram)) {
                 this.ram = ram;
             }
@@ -166,8 +172,8 @@ public class Mobile {
         @Override
         public String toString() {
             return "[" +
-                    " diagonalScreenSize = " + diagonalScreenSize + "\""+
-                    ", ppi = " + ppi +
+                    " diagonalScreenSize = " + String.format("%.2f", diagonalScreenSize) + "\""+
+                    ", ppi = " + String.format("%.2f", ppi) +
                     ", ram = " + ram + " GB" +
                     ", hasExternalMemoryCard = " + hasExternalMemoryCard +
                     " ]";
